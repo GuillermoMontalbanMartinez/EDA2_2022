@@ -1,5 +1,4 @@
-package org.eda2.ejercicio1;
-
+package  DivideYVenceras.PoliciaDyV.Ejercicio01;
 public class Sector {
 	private int i;
 	private int j;

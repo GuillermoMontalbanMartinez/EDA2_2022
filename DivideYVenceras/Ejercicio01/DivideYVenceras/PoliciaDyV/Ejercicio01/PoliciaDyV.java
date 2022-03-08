@@ -1,15 +1,14 @@
-package org.eda2.ejercicio1;
-
+package DivideYVenceras.PoliciaDyV.Ejercicio01;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Policia {
+public class PoliciaDyV {
 	private ArrayList<Sector> scoreDistrict;
 	
-	public Policia() {
+	public PoliciaDyV() {
 		this.scoreDistrict = new ArrayList<Sector>();
 	}
 	/**
@@ -36,48 +35,10 @@ public class Policia {
 		
 	}
 	
-	/**
-	 * @param array
-	 * @param low
-	 * @param pivot
-	 */
-	private static void swap(ArrayList<Sector> array, int low, int pivot) {
-		Sector aux = array.get(low);
-		array.add(low, array.get(pivot));
-		array.add(pivot, aux);
-	}
-	
-	/**
-	 * @param array
-	 * @param low
-	 * @param high
-	 * @return
-	 */
-	private int partition(ArrayList<Sector> array, int low, int high) {
-		Sector pivot = array.get(array.size()-1);
-		int i = (low-1);
-		
-		for (int j = low; j < high; j++) {
-			if (array.get(j).CompareTo(pivot) < 0 || array.get(j).CompareTo(pivot) == 0) {
-				i++;
-				if (array.get(j).CompareTo(array.get(low)) == -1) {
-					swap(array, low, pivot);
-				}
-			}
-		}
-	}
-	
-	public ArrayList<Sector> policiaDyV(ArrayList<Sector> array) {
-		if (array.size() < 3) {
-			return array;
-		}
-		int pivot = array.get(0).getScore();
-		
-	}
 	
 	
 	public static void main(String[] args) throws IOException {
-		Policia policia = new Policia();
+		PoliciaDyV policia = new PoliciaDyV();
 		policia.loadFile();
 		
 		for (int position = 0; position < policia.scoreDistrict.size(); position++) {
