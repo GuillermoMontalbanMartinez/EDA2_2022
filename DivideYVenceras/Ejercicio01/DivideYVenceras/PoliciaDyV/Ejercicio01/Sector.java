@@ -17,7 +17,13 @@ public class Sector {
 	}
 	
 
-	public int getScore() {
+	public Sector(Sector sector) {
+		this.i = sector.i;
+		this.j = sector.j;
+		this.score = sector.score;
+    }
+
+    public int getScore() {
 		return this.score;
 	}
 	
