@@ -35,7 +35,7 @@ public class PoliciaDyV {
 		
 	}
 
-	private Sector choosePivot(ArrayList<Sector> array) {
+	private static Sector choosePivot(ArrayList<Sector> array) {
 		Sector value1 = new Sector(array.get(0));
 		Sector value2 = new Sector(array.get(array.size()/2));
 		Sector value3 = new Sector(array.get(array.size()-1));
@@ -57,6 +57,7 @@ public class PoliciaDyV {
 	
 	public static void policiaDyV(ArrayList<Sector> array, int lowIndex, int highIndex) {
 		// Choose a pivot
+		Sector pivot = new Sector(choosePivot(array));
 		
 	}
 
@@ -64,8 +65,22 @@ public class PoliciaDyV {
 		PoliciaDyV policia = new PoliciaDyV();
 		policia.loadFile();
 
-		PoliciaDyV.policiaDyV(policia.scoreDistrict.toArray(), 0, policia.scoreDistrict.size()-1);
-		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size() - 1));
+		Sector sector = new Sector(PoliciaDyV.choosePivot(policia.scoreDistrict));
+		System.out.println(sector.toString());
+		System.out.println("Primer elemento de la lista");
+		System.out.println(policia.scoreDistrict.get(0));
+		System.out.println("Elemento intermedio de la lista");
+		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size() / 2));
+		System.out.println("Ultimo elemento de la lista");
+		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size()-1));
+		System.out.println("-----");
+		System.out.println(sector.equals(policia.scoreDistrict.get(0)));
+		System.out.println(policia.scoreDistrict.contains(sector));
+		System.out.println(policia.scoreDistrict.indexOf(sector));
+		System.out.println("-----");
+		System.out.println(sector.toString());
+		System.out.println(policia.scoreDistrict.get(0).toString());
+
 		
 //		for (int position = 0; position < policia.scoreDistrict.size(); position++) {
 //			System.out.println(policia.scoreDistrict.get(position));

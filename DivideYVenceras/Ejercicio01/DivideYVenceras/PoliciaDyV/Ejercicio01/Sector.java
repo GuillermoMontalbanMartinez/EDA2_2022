@@ -1,5 +1,5 @@
 package  DivideYVenceras.PoliciaDyV.Ejercicio01;
-public class Sector {
+public class Sector implements Comparable<Sector> {
 	private int i;
 	private int j;
 	private int score;
@@ -35,13 +35,24 @@ public class Sector {
 		return this.j;
 	}
 	
- @Override
+ 	@Override
 	public String toString() {
 		String out = new String();
 		return out += "x: " + this.getI() + " j: " + this.getJ() + " score: " + this.getScore();
 	
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		/** 
+		if (this.getScore() == (Sector)o.getScore()) {
+			return true;
+		}
+		*/
+		return this.compareTo((Sector)o) == 0;
+	}
 	
+	@Override
 	public int compareTo(Sector o) {
 		if (this.getScore() < o.getScore())
 			return -1;
