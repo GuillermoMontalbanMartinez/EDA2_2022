@@ -54,10 +54,40 @@ public class PoliciaDyV {
 
 		return value3;
 	}
-	
-	public static void policiaDyV(ArrayList<Sector> array, int lowIndex, int highIndex) {
-		// Choose a pivot
+
+	public static int partition(ArrayList<Sector> array, int lowIndex, int highIndex) {
 		Sector pivot = new Sector(choosePivot(array));
+
+		while (lowIndex <= highIndex) {
+			while (array.get(lowIndex).compareTo(pivot) < 0) {
+				lowIndex++;
+			}
+
+			while(array.get(highIndex).compareTo(pivot) > 0) {
+				highIndex--;
+			}
+
+			if (lowIndex <= highIndex) {
+				Sector tmp = new Sector(array.get(lowIndex));
+				array.add(lowIndex, array.get(highIndex));
+				array.add(highIndex, tmp);
+				lowIndex++;
+				highIndex--;
+			}
+		}
+		return lowIndex;
+	}
+	
+	public static void recursivePoliciaDyV(ArrayList<Sector> array, int lowIndex, int highIndex) {
+		int idx = partition(array, lowIndex, highIndex);
+		
+		if (lowIndex < idx -1) {
+			recursivePoliciaDyV(array, lowIndex, idx - 1);
+		}
+
+		if (highIndex > idx) {
+			recursivePoliciaDyV(array, idx, highIndex);
+		}
 		
 	}
 
@@ -81,6 +111,11 @@ public class PoliciaDyV {
 		System.out.println(sector.toString());
 		System.out.println(policia.scoreDistrict.get(0).toString());
 
+		recursivePoliciaDyV(policia.scoreDistrict, 0, policia.scoreDistrict.size() - 1);
+
+		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size() - 1).toString());
+		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size() - 2).toString());
+		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size() - 3).toString());
 		
 //		for (int position = 0; position < policia.scoreDistrict.size(); position++) {
 //			System.out.println(policia.scoreDistrict.get(position));
