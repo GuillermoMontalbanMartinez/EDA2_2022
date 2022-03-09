@@ -44,11 +44,6 @@ public class Sector implements Comparable<Sector> {
 
 	@Override
 	public boolean equals(Object o) {
-		/** 
-		if (this.getScore() == (Sector)o.getScore()) {
-			return true;
-		}
-		*/
 		return this.compareTo((Sector)o) == 0;
 	}
 	
