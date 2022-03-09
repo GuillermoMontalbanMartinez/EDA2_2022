@@ -34,51 +34,38 @@ public class PoliciaDyV {
 		obj.close();
 		
 	}
-	
 
-	public static void policiaDyV(ArrayList<Sector> array, int left, int righ) {
-		Sector pivot = new Sector(array.get(array.size() - 1)); // Choose the last element of array as pivot
-		int i = left;
-		int j = righ;
-		Sector aux;
+	private Sector choosePivot(ArrayList<Sector> array) {
+		Sector value1 = new Sector(array.get(0));
+		Sector value2 = new Sector(array.get(array.size()/2));
+		Sector value3 = new Sector(array.get(array.size()-1));
+		int valor = (value1.getScore() + value2.getScore() + value3.getScore()) / 3;
+		int aux1 = Math.abs(value1.getScore() - valor);
+		int aux2 = Math.abs(value2.getScore() - valor);
+		int aux3 = Math.abs(value3.getScore() - valor);
 
-		while(i < j) {
-			while(array.get(i).compareTo(pivot) <= 0 && i < j) {
-				i++;
-			}
-
-			while(array.get(j).compareTo(pivot) > 0) {
-				j--;
-			}
-
-			if (i < j) {
-				aux = new Sector(array.get(i));
-				array.add(i, array.get(j));
-				array.add(j, aux);
-			}
+		if (aux1 < aux2 && aux1 < aux3) {
+			return value1;
 		}
 
-		array.add(left, array.get(j));				// Se coloca el pivote en su lugar de forma que tendremos
-		array.add(j, pivot);						// los menores a su izauierda y los mayores a su derecha
-
-		if (left < (j-1)) {
-			PoliciaDyV.policiaDyV(array, left, (j-1));			// Ordenamos subarray izquierdo
+		if (aux2 < aux1 && aux2 < aux3) {
+			return value2;
 		}
 
-		if ((j+1) < righ) {
-			PoliciaDyV.policiaDyV(array,(j+1), righ);			// Ordenador subarray derecho
-		}
-
+		return value3;
 	}
 	
-	
+	public static void policiaDyV(ArrayList<Sector> array, int lowIndex, int highIndex) {
+		// Choose a pivot
+		
+	}
+
 	public static void main(String[] args) throws IOException {
 		PoliciaDyV policia = new PoliciaDyV();
 		policia.loadFile();
-		System.out.println(policia.scoreDistrict.get(0));
-		PoliciaDyV.policiaDyV(policia.scoreDistrict, 0, policia.scoreDistrict.size()-1);
-		System.out.println(policia.scoreDistrict.get(0));
-		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size()-1));
+
+		PoliciaDyV.policiaDyV(policia.scoreDistrict.toArray(), 0, policia.scoreDistrict.size()-1);
+		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size() - 1));
 		
 //		for (int position = 0; position < policia.scoreDistrict.size(); position++) {
 //			System.out.println(policia.scoreDistrict.get(position));

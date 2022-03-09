@@ -43,12 +43,10 @@ public class Sector {
 	}
 	
 	public int compareTo(Sector o) {
-		if (this.getScore() > o.getScore()) {
-			return 1;
-		} else if (this.getScore() < o.getScore()) {
+		if (this.getScore() < o.getScore())
 			return -1;
-		} else {
-			return 0;
-		}
+		if (this.getScore() > o.getScore())
+			return 1;
+		return 0;
 	}
 }
