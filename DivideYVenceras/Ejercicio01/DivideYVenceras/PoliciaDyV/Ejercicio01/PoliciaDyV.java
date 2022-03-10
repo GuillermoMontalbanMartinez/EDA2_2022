@@ -55,8 +55,62 @@ public class PoliciaDyV {
 		return value3;
 	}
 
+	public void sort(ArrayList<Sector> array, int lowIndex, int highIndex) {
+		if (lowIndex < highIndex) {
+			int middle = (lowIndex + highIndex) / 2;
+
+			sort(array, lowIndex, middle);
+			sort(array, middle + 1, highIndex);
+
+			merge(array, lowIndex, middle, highIndex);
+		}
+	}
+
+	public static void merge(ArrayList<Sector> array, int lowIndex, int middle, int highIndex) {
+		int size1 = middle - lowIndex + 1;
+		int size2 = highIndex - middle;
+
+		ArrayList<Sector> lowArray = new ArrayList<Sector>();
+		ArrayList<Sector> highArray = new ArrayList<Sector>();
+
+		for (int i=0; i < size1; i++) {
+			lowArray.add(i, array.get(lowIndex + i));
+		}
+
+		for (int i=0; i < size2; i++) {
+			highArray.add(i, array.get(middle + i + 1));
+		}
+
+		int i = 0, j = 0;
+		int k = lowIndex;
+
+		while(i < size1 && j < size2) {
+			if (lowArray.get(i).compareTo(highArray.get(j)) <= 0) {
+				array.set(k, lowArray.get(i));
+				i++;
+			} else {
+				array.set(k, highArray.get(j));
+				j++;
+			}
+			k++;
+		}
+
+		while (i < size1) {
+			array.set(k, lowArray.get(i));
+			i++;
+			k++;
+		}
+
+		while (j < size2) {
+			array.set(k, highArray.get(j));
+			j++;
+			k++;
+		}
+	}
+
+	/**
 	public static int partition(ArrayList<Sector> array, int lowIndex, int highIndex) {
-		Sector pivot = new Sector(choosePivot(array));
+		Sector pivot = new Sector(array.get(array.size() - 1));
 
 		while (lowIndex <= highIndex) {
 			while (array.get(lowIndex).compareTo(pivot) < 0) {
@@ -69,8 +123,8 @@ public class PoliciaDyV {
 
 			if (lowIndex <= highIndex) {
 				Sector tmp = new Sector(array.get(lowIndex));
-				array.add(lowIndex, array.get(highIndex));
-				array.add(highIndex, tmp);
+				array.set(lowIndex, array.get(highIndex));
+				array.set(highIndex, tmp);
 				lowIndex++;
 				highIndex--;
 			}
@@ -79,17 +133,15 @@ public class PoliciaDyV {
 	}
 	
 	public static void recursivePoliciaDyV(ArrayList<Sector> array, int lowIndex, int highIndex) {
-		int idx = partition(array, lowIndex, highIndex);
-		
-		if (lowIndex < idx -1) {
-			recursivePoliciaDyV(array, lowIndex, idx - 1);
-		}
 
-		if (highIndex > idx) {
-			recursivePoliciaDyV(array, idx, highIndex);
+		if (lowIndex < highIndex) {
+			int idx = partition(array, lowIndex, highIndex);
+			recursivePoliciaDyV(array, lowIndex, idx - 1);
+			recursivePoliciaDyV(array, idx + 1, highIndex);
 		}
 		
 	}
+	 */
 
 	public static void main(String[] args) throws IOException {
 		PoliciaDyV policia = new PoliciaDyV();
@@ -111,11 +163,15 @@ public class PoliciaDyV {
 		System.out.println(sector.toString());
 		System.out.println(policia.scoreDistrict.get(0).toString());
 
-		recursivePoliciaDyV(policia.scoreDistrict, 0, policia.scoreDistrict.size() - 1);
+		//recursivePoliciaDyV(policia.scoreDistrict, 0, policia.scoreDistrict.size() - 1);
+		policia.sort(policia.scoreDistrict, 0 , policia.scoreDistrict.size() - 1);
+
 
 		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size() - 1).toString());
 		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size() - 2).toString());
 		System.out.println(policia.scoreDistrict.get(policia.scoreDistrict.size() - 3).toString());
+
+		//System.out.println(policia.scoreDistrict.toString());
 		
 //		for (int position = 0; position < policia.scoreDistrict.size(); position++) {
 //			System.out.println(policia.scoreDistrict.get(position));
